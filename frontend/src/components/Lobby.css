@@ -15,10 +15,13 @@
   }
 
 .card-header-custom {
-    background-color: burlywood; /* Background color for the header */
+    
     color: white; /* Text color for the header */
     height: 59px; /* Height of the header */
     font-variant-east-asian: jis04;
+}
+.card{
+    background: rgb(184, 180, 241) !important;
 }
 
 .list-group-item-custom {
@@ -26,11 +29,11 @@
 }
 
 .list-group-item-custom:hover {
-    background-color: lightgray; /* Background color on hover */
+    background-color: rgb(208, 200, 200); /* Background color on hover */
 }
 
 .list-group-item-odd {
-    background-color: brown; /* Background color for odd rows */
+    background-color: rgb(134, 156, 223) !important; /* Background color for odd rows */
     color: white; /* Text color for odd rows */
 }
 

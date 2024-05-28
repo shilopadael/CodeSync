@@ -13,7 +13,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: process.env.FRONTEND_URL || "http://localhost:3000", // Use environment variable or default to localhost
+    origin: [/^http:\/\/localhost:\d+$/], // Use environment variable or default to localhost
     methods: ["GET", "POST"]
   }
 });
@@ -37,7 +37,7 @@ const CodeBlock = require('./models/CodeBlock');
 
 // Routes
 const codeBlockRoutes = require('./routes/codeBlockRoutes');
-app.use('/api/codeblocks/:{title}', codeBlockRoutes);
+app.use('/api/codeblocks/', codeBlockRoutes);
 
 // Lobby route to serve the list of code blocks
 app.get('/api/lobby', async (req, res) => {
@@ -71,11 +71,12 @@ app.get('/api/codeblocks/:id', async (req, res) => {
 
 // Track the connected users and roles
 let mentorSocketId = null;
+console.log('mentorSocketId', mentorSocketId);
 
 // Real-time connection with Socket.IO
 io.on('connection', (socket) => {
   console.log('New client connected', socket.id);
-
+  console.log('mentorSocketId', mentorSocketId);
   // Assign the first connected client as the mentor
   if (!mentorSocketId) {
     mentorSocketId = socket.id;

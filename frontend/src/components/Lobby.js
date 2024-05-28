@@ -1,16 +1,32 @@
-// src/components/Lobby.js
+
 import React, { useEffect, useState } from 'react';
-import { Form, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Container, Row, Col, ListGroup, Card } from 'react-bootstrap';
 import './Lobby.css';
+import io from 'socket.io-client';
+
+
+const socket = io(process.env.REACT_APP_SERVER_URL); // Adjust the URL if needed
 
 const Lobby = () => {
   const [codeBlocks, setCodeBlocks] = useState([]);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_SERVER_URL}/api/lobby`)
+    fetch(`${process.env.REACT_APP_SERVER_URL}/api/codeblocks/`)
       .then(response => response.json())
       .then(data => setCodeBlocks(data));
+
+    // Get the role from the server
+    socket.on('role', (assignedRole) => {
+      // Store the role in localStorage
+      localStorage.setItem('role', assignedRole);
+    });
+
+    // Clean up the effect
+    return () => {
+      socket.off('role');
+    };
+
   }, []);
 
   return (
@@ -19,7 +35,7 @@ const Lobby = () => {
         <Row className="justify-content-center">
             <Col md={8}>
             <Card className="text-center mb-4">
-                <Card.Title as="h1" className="card-header-custom primary">
+                <Card.Title as="h1" className="card-header-custom">
                     <span className="font-weight-bold">Choose</span> 
                     <span className="text-uppercase"> a </span> 
                     <span className="font-italic">Code Block</span>
@@ -32,10 +48,13 @@ const Lobby = () => {
                      className={`list-group-item-custom ${
                         index % 2 === 0 ? 'list-group-item-even' : 'list-group-item-odd'
                      }`}>
-                        
-                        <Link to={`/codeblock/${block._id}`} className="text-decoration-none">
-                        {block.title}
-                        </Link>
+                        { localStorage.getItem('role') ? (
+                                <Link to={`/codeblock/${block._id}`}  state={{ role: localStorage.getItem('role') , block: block}} className="text-decoration-none">
+                                {block.title}
+                                </Link>
+                        ) : (
+                        <span>Loading...</span>
+                      )}
                     </ListGroup.Item>
                     ))}
                 </ListGroup>

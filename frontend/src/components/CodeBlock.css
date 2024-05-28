@@ -1,0 +1,115 @@
+.background {
+    background-image: url('../../assets/background.jpeg'); /* Replace with the path to your image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .codeblock-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    color: white;
+    width: 100%;
+
+
+  }
+  .main-container{
+    background: #2c4055!important;
+  }
+
+  
+  .textarea-container {
+    width: 80%;
+    direction: ltr; 
+    
+  }
+  
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+  }
+  .pre{
+    align-items: start;
+    width: 10px;
+    padding: 1000px;
+  }
+  button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+    background-color: #2d5198;
+    color: white;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #2e6198;
+  }
+
+  .row{
+    width: 100%;
+    height: auto;
+
+  }
+  .card{
+    align-items: center
+  }
+  .card-body{
+    width: 80%;
+    align-self: center;
+  }
+.textarea-container{
+    align-self: center;
+    width: 100%;
+
+}
+.codeblock-textarea {
+    width: 100%;
+    height: 200px; /* Set the fixed height */
+    overflow-y: scroll; /* Add vertical scrollbar */
+    overflow-x: scroll; /* Add horizontal scrollbar */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid black;
+    font-size: 1rem;
+    background: transparent;
+    color: black(206, 22, 22);
+    background: #E1D9F1 !important;
+
+    caret-color: black(206, 22, 22);
+    /* position: absolute; */
+    top: 0;
+    left: 0;
+    z-index: 2;
+    overflow: hidden;
+    resize: none;
+    /* white-space: pre-wrap;
+    word-wrap: break-word; */
+    text-align: left;
+}
+.highlighter-textarea{
+
+     width: 100%;
+    height: 200px; /* Set the fixed height */
+    overflow-y: scroll; /* Add vertical scrollbar */
+    overflow-x: scroll; /* Add horizontal scrollbar */
+    background:   #E1D9D1 !important;
+    /* color: #0056b3; */
+    overflow: hidden;
+}
+  

@@ -11,7 +11,12 @@ dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
-const io = socketIo(server);
+const io = socketIo(server, {
+  cors: {
+    origin: process.env.FRONTEND_URL || "http://localhost:3000", // Use environment variable or default to localhost
+    methods: ["GET", "POST"]
+  }
+});
 
 const PORT = process.env.PORT || 3001;
 
@@ -32,7 +37,7 @@ const CodeBlock = require('./models/CodeBlock');
 
 // Routes
 const codeBlockRoutes = require('./routes/codeBlockRoutes');
-app.use('/api/codeblocks', codeBlockRoutes);
+app.use('/api/codeblocks/:{title}', codeBlockRoutes);
 
 // Lobby route to serve the list of code blocks
 app.get('/api/lobby', async (req, res) => {
@@ -44,10 +49,25 @@ app.get('/api/lobby', async (req, res) => {
   }
 });
 
-// Fallback to serve the React app for all other routes
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
+// Route to get a specific code block by title
+app.get('/api/codeblocks/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const codeBlock = await CodeBlock.findById(id);
+    if (codeBlock) {
+      res.json(codeBlock);
+    } else {
+      res.status(404).send('Code block not found');
+    }
+  } catch (err) {
+    res.status(500).send(err);
+  }
 });
+
+// Fallback to serve the React app for all other routes
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
+// });
 
 // Track the connected users and roles
 let mentorSocketId = null;

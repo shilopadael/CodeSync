@@ -13,7 +13,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: '*', // Use environment variable or default to localhost
+    origin: 'https://codesync1.onrender.com/', // Use environment variable or default to localhost
     methods: ["GET", "POST"]
   }
 });

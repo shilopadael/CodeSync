@@ -13,7 +13,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: 'https://codesync1.onrender.com/', // Use environment variable or default to localhost
+    origin: "*", // Use environment variable or default to localhost
     methods: ["GET", "POST"]
   }
 });
@@ -22,7 +22,10 @@ const PORT = process.env.PORT || 3001;
 
 // Middleware
 app.use(bodyParser.json());
-app.use(cors()); // Enable CORS
+app.use(cors({
+  origin: "*", // No trailing slash
+  credentials: true
+})); // Enable CORS
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })

@@ -112,7 +112,7 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('Client disconnected', socket.id);
     // If the mentor disconnects, reset the mentorSocketId
-    if (socket.id === mentorSocketId) {
+    if (socket.id === mentorSocketId || !io.sockets.sockets.has(mentorSocketId)) {
       mentorSocketId = null;
     }
   });

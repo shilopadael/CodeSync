@@ -1,8 +1,4 @@
 
-<html>
-<head>
-    <title>CodeSync - README</title>
-</head>
 <body>
     <h1>CodeSync</h1>
     <p>CodeSync is an online coding web application that allows a mentor and a student to collaborate on code blocks in real-time. The application features a lobby page to select code blocks and a code block page where real-time code editing takes place.</p>
